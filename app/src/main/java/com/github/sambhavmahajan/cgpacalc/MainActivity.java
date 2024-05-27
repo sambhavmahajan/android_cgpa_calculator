@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import android.view.View;
+import android.widget.Toast;
 
 class Subject{
     public String name;
@@ -24,7 +25,7 @@ class Subject{
         credit = Credit;
         grade = Grade;
     }
-    public double marks(){
+    public static double marks(String grade, int credit){
         switch(grade.toLowerCase().trim()){
             case "a+":
                 return 10*credit;
@@ -81,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
         double total = 0;
         for(Subject s : li){
             total += 10*s.credit;
-            myTotal += s.marks();
+            myTotal += Subject.marks(s.grade,s.credit);
         }
         return myTotal/total*10;
     }
@@ -93,7 +94,26 @@ public class MainActivity extends AppCompatActivity {
         myListView.setText(res.toString());
     }
     public void addItem(View view){
-        Subject subject = new Subject(subjectText.getText().toString(),Integer.parseInt(creditText.getText().toString()), gradeText.getText().toString());
+        if(gradeText.getText().length() == 0 || creditText.getText().length() == 0){
+            Toast.makeText(this, "Grade and Credit fields required", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        String creditSt = creditText.getText().toString();
+        if(creditSt.isEmpty()){
+            Toast.makeText(this, "Invalid Credits", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        boolean grd = Subject.marks(gradeText.getText().toString(), Integer.parseInt(creditSt)) < 0;
+        if(grd){
+            Toast.makeText(this, "Invalid Grade", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        int creditInt = Integer.parseInt(creditSt);
+        if(creditInt <= 0){
+            Toast.makeText(this, "Credit must be greater than zero", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        Subject subject = new Subject(subjectText.getText().toString(),creditInt, gradeText.getText().toString());
         li.add(subject);
         double gpa = gpaCalc();
         String temp = "GPA: " + String.format("%.2f", gpa);
