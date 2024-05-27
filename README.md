@@ -1,10 +1,10 @@
 **GPA Calculator Android App**
 
-![sc-app](https://github.com/sambhavmahajan/android_cgpa_calculator/assets/70747596/e37bc83c-d274-4de4-bfd4-8ed4dc92c126)
-
 **Description:**
 
 This GPA Calculator Android app allows users to calculate their GPA based on the grades and credits of their subjects. Users can add subjects along with their corresponding credits and grades, and the app will calculate the GPA accordingly.
+
+![sc-app](https://github.com/sambhavmahajan/android_cgpa_calculator/assets/70747596/e37bc83c-d274-4de4-bfd4-8ed4dc92c126)
 
 **Features:**
 
