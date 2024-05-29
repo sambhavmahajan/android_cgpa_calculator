@@ -125,6 +125,7 @@ public class MainActivity extends AppCompatActivity {
         if(li.size() > 0) {
             li.remove(li.size() - 1);
             updateView();
+            gpaFlash.setText("GPA: " + String.format("%.2f",gpaCalc()));
         }
     }
 }
