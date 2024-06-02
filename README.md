@@ -23,8 +23,8 @@ This repository contains an Android application that calculates the CGPA (Cumula
 1. **Clone the repository:**
 
     ```sh
-    git clone https://github.com/sambhavmahajan/cgpacalc.git
-    cd cgpacalc
+    git clone https://github.com/sambhavmahajan/android_cgpa_calculator.git
+    cd android_cgpa_calculator
     ```
 
 2. **Open the project in Android Studio:**
