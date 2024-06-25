@@ -20,32 +20,32 @@ This repository contains an Android application that calculates the CGPA (Cumula
 
 ## Installation
 
-1. **Clone the repository:**
+1. **Clone the repository**
 
     ```sh
     git clone https://github.com/sambhavmahajan/android_cgpa_calculator.git
     cd android_cgpa_calculator
     ```
 
-2. **Open the project in Android Studio:**
+2. **Open the project in Android Studio**
 
     - Open Android Studio.
     - Select `File -> Open...` and navigate to the cloned repository.
     - Click `OK` to open the project.
 
-3. **Build and run the project:**
+3. **Build and run the project**
 
     - Connect an Android device or start an emulator.
     - Click the `Run` button in Android Studio.
 
 ## Usage
 
-1. **Add a Subject:**
+1. **Add a Subject**
 
     - Enter the subject name, grade, and credit in the respective input fields.
     - Click the `Add` button to add the subject to the list.
 
-2. **Remove a Subject:**
+2. **Remove a Subject**
 
     - To remove a subject by index, enter the index (starting from 0) in the `Index` field and click the `Remove` button.
     - To remove the most recent subject, click the `Remove recent` button.
@@ -54,9 +54,13 @@ This repository contains an Android application that calculates the CGPA (Cumula
 
     - Click the `Clear` button to remove all subjects from the list.
 
-4. **View GPA:**
+4. **View GPA**
 
     - The current GPA and the total number of subjects are displayed below the subject list.
+  
+5. **Save Feature**
+
+    - The data is automatically saved.
 
 ## Code Overview
 
