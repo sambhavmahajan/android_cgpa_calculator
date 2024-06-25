@@ -1,8 +1,8 @@
 package com.github.sambhavmahajan.cgpacalc;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -11,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +24,6 @@ class Subject {
         credit = Credit;
         grade = Grade;
     }
-
     public static double marks(String grade, int credit) {
         switch (grade.toLowerCase().trim()) {
             case "a+":
@@ -53,18 +51,41 @@ class Subject {
 }
 
 public class MainActivity extends AppCompatActivity {
-    private List<Subject> li = new ArrayList<>();
+    private List<Subject> li;
     private TextView subjectText;
     private TextView gradeText;
     private TextView creditText;
-    private Button btnRecent;
-    private Button btnAdd;
     private TextView gpaFlash;
     private TextView myListView;
     private TextView idxToRemove;
-    private Button btnRemove;
-    private Button btnClear;
-
+    private final String key_name = "SubjectList";
+    private SharedPreferences sp;
+    private void initialise(){
+        li = new ArrayList<>();
+        subjectText = findViewById(R.id.editTextText);
+        gradeText = findViewById(R.id.editTextText2);
+        creditText = findViewById(R.id.editTextText3);
+        gpaFlash = findViewById(R.id.textView2);
+        myListView = findViewById(R.id.textView);
+        idxToRemove = findViewById(R.id.editTextText4);
+        sp = getSharedPreferences(key_name, MODE_PRIVATE);
+        myListView.setText("");
+        if(!sp.contains(key_name)) return;
+        String txt = sp.getString(key_name, "");
+        myListView.setText(txt);
+        String[] lines = txt.split("\n\n");
+        for(String line : lines){
+            String[] elements = line.split("\n");
+            if(elements.length == 3){
+                String name = elements[0].replace("Subject: ","");
+                int credit = Integer.parseInt(elements[1].replace("Credit: ",""));
+                String grade = elements[2].replace("Grade: ","");
+                Subject subject = new Subject(name, credit, grade);
+                li.add(subject);
+            }
+        }
+        gpaFlash.setText(String.format("GPA: %.2f\nTotal Subjects: %d", gpaCalc(), li.size()));
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,18 +97,7 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
-        subjectText = findViewById(R.id.editTextText);
-        gradeText = findViewById(R.id.editTextText2);
-        creditText = findViewById(R.id.editTextText3);
-        btnRecent = findViewById(R.id.button);
-        btnAdd = findViewById(R.id.button2);
-        gpaFlash = findViewById(R.id.textView2);
-        myListView = findViewById(R.id.textView);
-        btnRemove = findViewById(R.id.button3);
-        btnClear = findViewById(R.id.button4);
-        idxToRemove = findViewById(R.id.editTextText4);
-        myListView.setText("");
+        initialise();
     }
 
     public double gpaCalc() {
@@ -108,7 +118,11 @@ public class MainActivity extends AppCompatActivity {
                     .append("\nGrade: ").append(s.grade)
                     .append("\n\n");
         }
-        myListView.setText(res.toString());
+        SharedPreferences.Editor editor = sp.edit();
+        String txt = res.toString();
+        editor.putString(key_name, txt);
+        editor.apply();
+        myListView.setText(txt);
         gpaFlash.setText(String.format("GPA: %.2f\nTotal Subjects: %d", gpaCalc(), li.size()));
     }
 
