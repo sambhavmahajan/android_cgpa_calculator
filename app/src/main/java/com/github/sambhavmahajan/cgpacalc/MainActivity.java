@@ -1,5 +1,6 @@
 package com.github.sambhavmahajan.cgpacalc;
 
+import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -60,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView idxToRemove;
     private final String key_name = "SubjectList";
     private SharedPreferences sp;
+    @SuppressLint("DefaultLocale")
     private void initialise(){
         li = new ArrayList<>();
         subjectText = findViewById(R.id.editTextText);
@@ -110,6 +112,7 @@ public class MainActivity extends AppCompatActivity {
         return myTotal / total * 10;
     }
 
+    @SuppressLint("DefaultLocale")
     public void updateView() {
         StringBuilder res = new StringBuilder();
         for (Subject s : li) {
